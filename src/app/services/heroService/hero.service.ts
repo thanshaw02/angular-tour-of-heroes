@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import MessageService from "./message.service";
-import { Hero, HEROES } from "../model";
+import MessageService from "../messageService/message.service"
+import { Hero, HEROES } from "../../model";
 
 @Injectable({
   providedIn: "root"
@@ -15,6 +15,15 @@ class HeroService {
     const heroes = of(HEROES);
     this.messageService.add("HeroService: fetched heroes");
     return heroes;
+  }
+
+  public getHero(id: number): Observable<Hero> {
+    const hero = HEROES.find((hero) => hero.id === id)!;
+
+    // need error handling if a hero is not found with id
+
+    this.messageService.add(`HeroService: fetched hero with id=${id}`);
+    return of(hero);
   }
 }
 

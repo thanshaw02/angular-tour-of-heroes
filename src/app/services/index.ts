@@ -1,5 +1,5 @@
-import HeroService from "./hero.service";
-import MessageService from "./message.service";
+import HeroService from "./heroService/hero.service";
+import MessageService from "./messageService/message.service";
 
 export {
   HeroService,
