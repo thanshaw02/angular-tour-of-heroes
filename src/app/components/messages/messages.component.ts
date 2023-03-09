@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import MessageService from '../services/message.service';
+import { MessageService } from '../../services';
 
 @Component({
   selector: 'app-messages',
@@ -9,6 +9,6 @@ import MessageService from '../services/message.service';
 export class MessagesComponent {
 
   // Angular only binds to public component properties.
-  constructor(public messageService: MessageService) {  }
+  constructor(public messageService: MessageService) { }
 
 }

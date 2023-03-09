@@ -1,7 +1,17 @@
 <h1>{{ title }}</h1>
 
+<!-- Navigation menu -->
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+
 <!-- Displaying the newly generated component for heroes -->
-<app-heroes/>
+<!-- router used instead of this now -->
+<!-- <app-heroes/> -->
+
+<!-- Handles routing to the correct page based off of our routes defined in "./app-routing/routes.ts" -->
+<router-outlet/>
 
 <!-- Displaying the newly generated component for messages -->
 <app-messages/>
