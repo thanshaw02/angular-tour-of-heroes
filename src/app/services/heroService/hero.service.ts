@@ -10,6 +10,9 @@ import { Hero, HEROES } from "../../model";
 })
 class HeroService {
   private heroesUrl = "api/heroes"; // URL to web api
+  private httpOptions = {
+    headers: new HttpHeaders({ "Content-Type": "application/json" })
+  };
 
   constructor(
     private http: HttpClient,
@@ -20,17 +23,26 @@ class HeroService {
   public getHeroes(): Observable<Array<Hero>> {
     return this.http.get<Array<Hero>>(this.heroesUrl)
       .pipe(
+        tap(_ => this.log("fetched heroes")),
         catchError(this.handleError<Array<Hero>>("getHeroes", []))
       );
   }
 
+  // GET request that fetches a single Hero object by id
   public getHero(id: number): Observable<Hero> {
-    const hero = HEROES.find((hero) => hero.id === id)!;
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get<Hero>(url).pipe(
+      tap(_ => this.log(`fetched hero by id ${id}`)),
+      catchError(this.handleError<Hero>(`getHero id = ${id}`))
+    );
+  }
 
-    // need error handling if a hero is not found with id
-
-    this.log(`HeroService: fetched hero with id=${id}`);
-    return of(hero);
+  // PUT request that updates a singl hero by id
+  public updateHero(hero: Hero): Observable<void> {
+    return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap(_ => this.log(`updated hero by id ${hero.id}`)),
+      catchError(this.handleError<any>(`updateHero`))
+    )
   }
 
   /* Log a HeroService message with the MessageService */
