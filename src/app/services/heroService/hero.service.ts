@@ -45,7 +45,24 @@ class HeroService {
     )
   }
 
-  /* Log a HeroService message with the MessageService */
+  // POST request that adds a new hero
+  public addHero(hero: Hero): Observable<Hero> {
+    return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
+      tap((newHero) => this.log(`added new hero by id ${newHero.id}`)),
+      catchError(this.handleError<Hero>("addHero"))
+    );
+  }
+
+  // DELETE request that deletes a hero by id
+  public deleteHero(id: number): Observable<void> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, this.httpOptions).pipe(
+      tap(_ => this.log(`deleted hero by id ${id}`)),
+      catchError(this.handleError<any>(`deleteHero`))
+    );
+  }
+
+  // Log a HeroService message with the MessageService
   private log(message: string): void {
     this.messageService.add(`HeroService: ${message}`);
   }

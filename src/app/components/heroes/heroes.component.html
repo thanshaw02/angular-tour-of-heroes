@@ -7,5 +7,21 @@
       </span>
       {{ hero.name }}
     </a>
+    <button 
+      type="button" 
+      class="delete" 
+      title="delete hero" 
+      (click)="deleteHero(hero)"
+    >
+      x
+    </button>
   </li>
 </ul>
+<div>
+  <label for="new-hero">Hero name: </label>
+  <input id="new-hero" #heroName>
+  <br>
+  <button type="button" class="add-button" (click)="addHero(heroName.value)">
+    Add Hero
+  </button>
+</div>
